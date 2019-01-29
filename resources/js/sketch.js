@@ -18,9 +18,9 @@ function setup() {
     // World.add(world, box1);
     Engine.run(engine);
     var options = {
-        isStatic : true
+        isStatic: true
     }
-    ground = Bodies.rectangle(200, height, width, 10, options);
+    ground = Bodies.rectangle(200, height-50, width, 10, options);
     World.add(world, ground);
 }
 
@@ -35,11 +35,19 @@ function draw() {
     for (var bx = 0; bx < boxes.length; bx++) {
         boxes[bx].show();
     }
+    noStroke(255);
+    fill(170);
+    rectMode(CENTER);
+    rect(ground.position.x, ground.position.y, width, 10);
     // box1.show();
 }
 
 function Box(x, y, w, h) {
-    this.body = Bodies.rectangle(x, y, w, h);
+    var options = {
+        friction: 0.5,
+        restitution: 1
+    }
+    this.body = Bodies.rectangle(x, y, w, h, options);
     this.w = w;
     this.h = h;
     World.add(world, this.body);
@@ -49,6 +57,11 @@ function Box(x, y, w, h) {
         var angle = this.body.angle;
         push();
         translate(pos.x, pos.y);
+        rotate(angle);
+        rectMode(CENTER)
+        strokeWeight(2)
+        stroke(255)
+        fill(127)
         rect(0, 0, this.w, this.h);
         pop();
     }
