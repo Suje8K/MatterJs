@@ -26,10 +26,16 @@ function draw() {
     background(51)
     for (var bx = 0; bx < boxes.length; bx++) {
         boxes[bx].show();
+        if(boxes[bx].body.position.y > height){
+            World.remove(world, boxes[bx].body);
+            boxes.splice(bx, 1);
+            bx--;
+        }
     }
     for (var gd = 0; gd < grounds.length; gd++) {
         grounds[gd].show();
     }
+    console.log(boxes.length, world.bodies.length);
 }
 
 function Box(x, y, w, h) {
